@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Author Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white font-sans">
+
+<!-- Navbar -->
+<nav class="w-full bg-[#EFF1E2] shadow-md">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+    <div class="flex items-center space-x-8">
+      <img src="../assets/images/logo.png" alt="Company Logo">
+      <div class="flex space-x-6">
+        <a href="#" class="text-[#262920] font-medium hover:underline">Home</a>
+        <a href="#" class="text-[#262920] font-medium hover:underline">Blogs</a>
+        <a href="#" class="text-[#262920] font-medium hover:underline">Discover</a>
+      </div>
+    </div>
+    <div class="hidden md:flex">
+      <a href="#" class="bg-[#262920] text-white px-4 py-2 rounded-lg hover:bg-opacity-90 transition">Sign up</a>
+    </div>
+    <div class="md:hidden">
+      <button id="mobile-btn" class="text-[#262920] text-2xl focus:outline-none">☰</button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 space-y-2">
+    <a href="#" class="block text-[#262920] font-medium">Home</a>
+    <a href="#" class="block text-[#262920] font-medium">Blogs</a>
+    <a href="#" class="block text-[#262920] font-medium">Discover</a>
+    <a href="#" class="block bg-[#262920] text-white px-4 py-2 rounded-lg text-center">Sign up</a>
+  </div>
+</nav>
+
+<!-- Profile Section -->
+<section class="max-w-3xl mx-auto px-4 py-12">
+  <!-- Author Info -->
+  <section class="flex items-center space-x-6 mb-8">
+    <img src="../assets/images/john-doe.jpg" alt="John Doe" class="w-24 h-24 rounded-full">
+    <div>
+      <p class="text-3xl font-semibold text-[#262920]">John Doe</p>
+      <p class="text-gray-600">Motivational Speaker & Author</p>
+      <div class="mt-4">
+        <button id="follow-btn" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition">Follow</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Author Section -->
+  <section class="bg-[#F8F8F8] p-6 rounded-lg mb-8">
+    <h3 class="text-2xl font-semibold text-[#262920] mb-4">About the Author</h3>
+    <p class="text-gray-700">
+      John Doe is a bestselling author and motivational speaker with over 10 years of experience in personal development. Known for his practical advice and inspiring approach, he has helped thousands of individuals unlock their full potential.
+    </p>
+    <p class="text-gray-700 mt-4">
+      Through his books and speeches, John inspires others to overcome obstacles in life and pursue their dreams with confidence.
+    </p>
+  </section>
+
+  <!-- Author's Articles Section -->
+  <section class="mb-12">
+    <h3 class="text-2xl font-semibold text-[#262920] mb-4">Articles by John Doe</h3>
+    <div class="space-y-4">
+      <article class="bg-white shadow-lg rounded-lg p-6">
+        <h4 class="text-xl font-semibold text-[#262920] mb-2">How to Overcome Self-Doubt</h4>
+        <p class="text-gray-600 mb-4">Published on March 12, 2025</p>
+        <p class="text-gray-800 mb-4">
+          Self-doubt is one of the greatest obstacles to success. This article explores practical strategies for overcoming self-doubt and breaking mental barriers.
+        </p>
+        <a href="#" class="text-blue-500 hover:underline">Read the article</a>
+      </article>
+
+      <article class="bg-white shadow-lg rounded-lg p-6">
+        <h4 class="text-xl font-semibold text-[#262920] mb-2">The Power of Positive Thinking</h4>
+        <p class="text-gray-600 mb-4">Published on April 5, 2025</p>
+        <p class="text-gray-800 mb-4">
+          Positive thinking is not just an attitude, it is a powerful tool to transform your life. Discover proven techniques to cultivate a positive mindset.
+        </p>
+        <a href="#" class="text-blue-500 hover:underline">Read the article</a>
+      </article>
+    </div>
+  </section>
+</section>
+
+<script>
+  // Mobile Menu toggle script
+  const mobileBtn = document.getElementById("mobile-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  mobileBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
+
+  // Follow Button Interaction
+  const followBtn = document.getElementById("follow-btn");
+
+  followBtn.addEventListener("click", () => {
+    followBtn.textContent = "Followed";
+    followBtn.classList.remove("bg-blue-500", "hover:bg-blue-600");
+    followBtn.classList.add("bg-green-500", "cursor-not-allowed");
+  });
+</script>
+
+</body>
+</html>

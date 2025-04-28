@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Author Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white font-sans">
+
+<!-- Navbar -->
+<nav class="w-full bg-[#EFF1E2] shadow-md">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+    <div class="flex items-center space-x-8">
+      <img src="../assets/images/logo.png" alt="Company Logo">
+      <div class="flex space-x-6">
+        <a href="../Utilisateur/UserHome.html" class="text-[#262920] font-medium hover:underline">Home</a>
+        <a href="#" class="text-[#262920] font-medium hover:underline">Dashboard</a>
+        <a href="AuteurSettings.html" class="text-[#262920] font-medium hover:underline">Settings</a>
+      </div>
+    </div>
+   <!-- Search Bar -->
+   <div class="hidden md:flex items-center space-x-2 bg-white border border-gray-300 rounded-lg px-2 py-1 max-w-xs w-full">
+    <input 
+      type="text" 
+      placeholder="Search..." 
+      class="flex-grow px-2 py-1 outline-none text-sm text-[#262920]" 
+    />
+    <button 
+      class="bg-[#262920] hover:bg-[#3a3d34] text-white px-4 py-1 rounded-lg text-sm transition duration-200"
+    >
+      Search
+    </button>
+  </div>
+
+    <div class="md:hidden">
+      <button id="mobile-btn" class="text-[#262920] text-2xl focus:outline-none">☰</button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 space-y-2">
+    <a href="../Utilisateur/UserHome.html" class="block text-[#262920] font-medium">Home</a>
+    <a href="#" class="block text-[#262920] font-medium">Dashboard</a>
+    <a href="AuteurSettings.html" class="block text-[#262920] font-medium">Settings</a>
+  </div>
+</nav>
+
+<!-- Dashboard Section -->
+<section class="max-w-7xl mx-auto px-4 py-12">
+  <div class="flex space-x-8">
+    
+    <!-- Left Sidebar -->
+    <div class="w-1/4 bg-[#F8F8F8] rounded-lg p-6">
+      
+      <!-- Profile Picture + Name + Role -->
+      <div class="flex flex-col items-center mb-8">
+        <img src="../assets/images/john-doe.jpg" alt="Profile Picture" class="w-20 h-20 rounded-full mb-4">
+        <h2 class="text-xl font-semibold text-[#262920]">John Doe</h2>
+        <p class="text-gray-600 text-sm">Author</p>
+      </div>
+
+      <!-- Sidebar Links -->
+      <h3 class="text-xl font-semibold text-[#262920] mb-4">Dashboard</h3>
+      <ul class="space-y-4 transform transition-transform duration-700 ease-out translate-y-4">
+        <li class="flex items-center space-x-3">
+          <img src="../assets/icons/articles.png" alt="My Articles Icon" class="w-5 h-5">
+          <a href="#" class="text-[#262920] font-medium hover:text-blue-500">My Articles</a>
+        </li>
+        <li class="flex items-center space-x-3">
+          <img src="../assets/icons/statistics.png" alt="Statistics Icon" class="w-5 h-5">
+          <a href="#statistics" class="text-[#262920] font-medium hover:text-blue-500">Statistics</a>
+        </li>
+        <li class="flex items-center space-x-3">
+          <img src="../assets/icons/settings.png" alt="Settings Icon" class="w-5 h-5">
+          <a href="AuteurSettings.html" class="text-[#262920] font-medium hover:text-blue-500">Profile Settings</a>
+        </li>
+        <li class="flex items-center space-x-3">
+          <img src="../assets/icons/notif-icon.png" alt="Notifications Icon" class="w-5 h-5">
+          <a href="#notifications" class="text-[#262920] font-medium hover:text-blue-500">Notifications</a>
+        </li>
+        <li class="flex items-center space-x-3">
+          <img src="../assets/icons/logout.png" alt="Logout Icon" class="w-5 h-5">
+          <a href="AuteurLogout.html" class="text-[#262920] font-medium hover:text-blue-500">Logout</a>
+      </ul>
+    </div>
+
+    <!-- Right Content Area -->
+    <div class="w-3/4 space-y-8">
+      
+      <!-- Welcome Section -->
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-2xl font-semibold text-[#262920] mb-4">Welcome back, John Doe!</h2>
+        <p class="text-gray-600">Your dashboard allows you to manage your articles, check your statistics, and update your settings.</p>
+      </div>
+
+      <!-- Articles Overview -->
+      <div class="bg-white shadow-lg rounded-lg p-6" id="statistics">
+        <h3 class="text-xl font-semibold text-[#262920] mb-4">Your Recent Articles</h3>
+        <div class="space-y-4">
+          <div class="flex justify-between items-center">
+            <p class="text-lg text-[#262920]">How to Overcome Self-Doubt</p>
+            <a href="#" class="text-blue-500 hover:underline">Edit</a>
+          </div>
+          <div class="flex justify-between items-center">
+            <p class="text-lg text-[#262920]">The Power of Positive Thinking</p>
+            <a href="#" class="text-blue-500 hover:underline">Edit</a>
+          </div>
+          <div class="flex justify-between items-center">
+            <p class="text-lg text-[#262920]">Unlock Your Inner Potential</p>
+            <a href="#" class="text-blue-500 hover:underline">Edit</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Statistics Section -->
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <h3 class="text-xl font-semibold text-[#262920] mb-4">Statistics</h3>
+        <div class="grid grid-cols-2 gap-6">
+          <div class="bg-[#E6F7FF] p-4 rounded-lg text-center">
+            <p class="text-lg text-[#262920]">Total Articles</p>
+            <p class="text-2xl font-semibold text-[#262920]">15</p>
+          </div>
+          <div class="bg-[#E6FFEB] p-4 rounded-lg text-center">
+            <p class="text-lg text-[#262920]">Total Views</p>
+            <p class="text-2xl font-semibold text-[#262920]">1,200</p>
+          </div>
+          <div class="bg-[#FFEBE6] p-4 rounded-lg text-center">
+            <p class="text-lg text-[#262920]">Followers</p>
+            <p class="text-2xl font-semibold text-[#262920]">450</p>
+          </div>
+          <div class="bg-[#FFF4E6] p-4 rounded-lg text-center">
+            <p class="text-lg text-[#262920]">Total Comments</p>
+            <p class="text-2xl font-semibold text-[#262920]">230</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Latest Notifications -->
+      <div class="bg-white shadow-lg rounded-lg p-6" id="notifications"> 
+        <h3 class="text-xl font-semibold text-[#262920] mb-4">Latest Notifications</h3>
+        <div class="space-y-4">
+          <div class="flex justify-between items-center">
+            <p class="text-gray-600">Your article "The Power of Positive Thinking" has received 20 new comments.</p>
+            <p class="text-gray-500 text-sm">2 hours ago</p>
+          </div>
+          <div class="flex justify-between items-center">
+            <p class="text-gray-600">Your article "Unlock Your Inner Potential" has been shared 50 times.</p>
+            <p class="text-gray-500 text-sm">5 hours ago</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Mobile Menu toggle
+  const mobileBtn = document.getElementById("mobile-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  mobileBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
+</script>
+
+</body>
+</html>

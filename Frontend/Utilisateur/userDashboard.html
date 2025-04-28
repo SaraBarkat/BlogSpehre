@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white font-sans">
+
+<!-- Navbar -->
+<nav class="w-full bg-[#EFF1E2] shadow-md">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+    <div class="flex items-center space-x-8">
+      <img src="../assets/images/logo.png" alt="Company Logo">
+      <div class="flex space-x-6">
+        <a href="UserHome.html" class="text-[#262920] font-medium hover:underline">Home</a>
+        <a href="#" class="text-[#262920] font-medium hover:underline">Dashboard</a>
+        <a href="UserSettings.html" class="text-[#262920] font-medium hover:underline">Settings</a>
+      </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="hidden md:flex items-center space-x-2 bg-white border border-gray-300 rounded-lg px-2 py-1 max-w-xs w-full">
+      <input 
+        type="text" 
+        placeholder="Search..." 
+        class="flex-grow px-2 py-1 outline-none text-sm text-[#262920]" 
+      />
+      <button 
+        class="bg-[#262920] hover:bg-[#3a3d34] text-white px-4 py-1 rounded-lg text-sm transition duration-200"
+      >
+        Search
+      </button>
+    </div>
+
+    <div class="md:hidden">
+      <button id="mobile-btn" class="text-[#262920] text-2xl focus:outline-none">☰</button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 space-y-2">
+    <a href="UserHome.html" class="block text-[#262920] font-medium">Home</a>
+    <a href="#" class="block text-[#262920] font-medium">Dashboard</a>
+    <a href="UserSettings.html" class="block text-[#262920] font-medium">Settings</a>
+  </div>
+</nav>
+
+<!-- Dashboard Section -->
+<section class="max-w-7xl mx-auto px-4 py-12">
+  <div class="flex space-x-8">
+    
+    <!-- Left Sidebar -->
+    <div class="w-1/4 bg-[#F8F8F8] rounded-lg p-6">
+
+      <!-- Profile Picture -->
+      <div class="flex flex-col items-center mb-8">
+        <img src="../assets/images/userPictureF.png" alt="Profile Picture" class="w-20 h-20 rounded-full mb-4">
+        <h2 class="text-xl font-semibold text-[#262920]">Jane Smith</h2>
+        <p class="text-gray-600 text-sm">User</p>
+      </div>
+
+      <!-- Sidebar Links -->
+      <h3 class="text-xl font-semibold text-[#262920] mb-4">Menu</h3>
+      <ul class="space-y-4 transform transition-transform duration-700 ease-out translate-y-4">
+        <li class="flex items-center space-x-3">
+          <img src="../assets/icons/home.png" alt="Home Icon" class="w-5 h-5">
+          <a href="#" class="text-[#262920] font-medium hover:text-blue-500">Home</a>
+        </li>
+        <li class="flex items-center space-x-3">
+          <img src="../assets/icons/activity.png" alt="Activity Icon" class="w-5 h-5">
+          <a href="#recent-activity" class="text-[#262920] font-medium hover:text-blue-500">My Activity</a>
+        </li>
+        <li class="flex items-center space-x-3">
+          <img src="../assets/icons/settings.png" alt="Settings Icon" class="w-5 h-5">
+          <a href="UserSettings.html" class="text-[#262920] font-medium hover:text-blue-500">Settings</a>
+        </li>
+        <li class="flex items-center space-x-3">
+          <img src="../assets/icons/logout.png" alt="Logout Icon" class="w-5 h-5">
+          <a href="UserLogout.html" class="text-[#262920] font-medium hover:text-blue-500">Logout</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Right Content Area -->
+    <div class="w-3/4 space-y-8">
+      
+      <!-- Welcome Section -->
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-2xl font-semibold text-[#262920] mb-4">Welcome, Jane!</h2>
+        <p class="text-gray-600">Here's a quick overview of your recent activities and updates.</p>
+      </div>
+
+      <!-- Recent Activity -->
+      <div class="bg-white shadow-lg rounded-lg p-6" id="recent-activity">
+        <h3 class="text-xl font-semibold text-[#262920] mb-4">Recent Activity</h3>
+        <ul class="space-y-4">
+          <li class="flex justify-between items-center">
+            <p class="text-gray-600">You liked "10 Ways to Stay Productive".</p>
+            <p class="text-gray-500 text-sm">1 hour ago</p>
+          </li>
+          <li class="flex justify-between items-center">
+            <p class="text-gray-600">You updated your profile picture.</p>
+            <p class="text-gray-500 text-sm">3 hours ago</p>
+          </li>
+          <li class="flex justify-between items-center">
+            <p class="text-gray-600">You changed your password.</p>
+            <p class="text-gray-500 text-sm">Yesterday</p>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <h3 class="text-xl font-semibold text-[#262920] mb-4">Quick Stats</h3>
+        <div class="grid grid-cols-2 gap-6">
+          <div class="bg-[#E6F7FF] p-4 rounded-lg text-center">
+            <p class="text-lg text-[#262920]">Posts Liked</p>
+            <p class="text-2xl font-bold text-[#262920]">34</p>
+          </div>
+          <div class="bg-[#E6FFEB] p-4 rounded-lg text-center">
+            <p class="text-lg text-[#262920]">Profile Views</p>
+            <p class="text-2xl font-bold text-[#262920]">189</p>
+          </div>
+          <div class="bg-[#FFEBE6] p-4 rounded-lg text-center">
+            <p class="text-lg text-[#262920]">Comments</p>
+            <p class="text-2xl font-bold text-[#262920]">27</p>
+          </div>
+          <div class="bg-[#FFF4E6] p-4 rounded-lg text-center">
+            <p class="text-lg text-[#262920]">Followers</p>
+            <p class="text-2xl font-bold text-[#262920]">58</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // Mobile Menu toggle
+  const mobileBtn = document.getElementById("mobile-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+
+  mobileBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
+</script>
+
+</body>
+</html>
