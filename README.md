@@ -70,4 +70,4 @@ python manage.py migrate
 python manage.py runserver
 
 ### 3. Ouvrir le Frontend
-Ouvrir frontend/LandingPage/index.html dans votre navigateur ou hébergez-le sur un serveur local.
+Ouvrir frontend/LandingPage/index.html dans votre navigateur .
