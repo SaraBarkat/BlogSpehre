@@ -1,0 +1,5 @@
+Générer le schéma :python manage.py graph_models -a -o schema.png
+python manage.py inspectdb > models.py
+ .\env\Scripts\Activate 
+
+ python manage.py startapp crud-following

@@ -1,0 +1,153 @@
+Specifications fonctionnelles du systeme : 
+
+les acteurs : utilisateur , auteur ; 
+
+Functions : 
+-Landing page : liste des articles , affichage d'un article en detail 
+                consultation du profil d'un auteur,moteur de recherche(par mot clé,auteur,article)
+
+-Comment_crud (create,update,get,delete)-> statistics 
+-article_crud (create ,delete,update,read/get)
+-Operation de following(normal_user/auteur) -> follow_crud(creation_follow,suppression_follow) 
+    =>following_user : celui qui suit.
+    =>followed_user : celui qui est suivi.
+-Gestion des notifications dans son profil
+-Authentification,gestion des roles,gestion du profil  
+
+
+Exemple a suivre pour faire l'integration entre le frontend et Le backend 
+
+--------------------------------------------------------------------------------
+<!-- login.html -->
+<form id="login-form">
+  <input type="email" id="email" />
+  <input type="password" id="password" />
+  <button type="submit">Login</button>
+</form>
+
+<script>
+  document.getElementById("login-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const response = await fetch("http://127.0.0.1:8000/auth/login/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await response.json();
+    console.log(data);
+  });
+</script>
+
+--------------------------------------------------------------------------------
+
+
+le deploiement du site web : 
+
+---------------------------------------------------------------------------------
+✅ Étapes pour déployer ton projet Django simple (backend + HTML frontend)
+🛠 1. Prépare ton projet Django pour la production
+Avant tout, assure-toi de :
+
+🔒 a. Sécurité
+Dans settings.py :
+
+python
+Copy
+Edit
+DEBUG = False
+ALLOWED_HOSTS = ['ton-domaine.com', 'www.ton-domaine.com', 'IP_SERVEUR']
+🗃️ b. Collecte des fichiers statiques
+Django ne sert pas automatiquement les fichiers CSS/JS en production. Donc, ajoute dans settings.py :
+
+python
+Copy
+Edit
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+Et exécute :
+
+bash
+Copy
+Edit
+python manage.py collectstatic
+🚀 2. Choisis une plateforme de déploiement
+Option 1: 🧠 Render (ultra simple pour Django)
+Site : https://render.com
+
+Tu connectes ton repo GitHub
+
+Configuration automatique
+
+Prend en charge staticfiles, Gunicorn, etc.
+
+Option 2: 🐘 Railway (simple + plus flexible)
+Site : https://railway.app
+
+Très bon pour projets Django simples
+
+Interface moderne, très bien pour débutant
+
+Option 3: 💼 VPS (DigitalOcean, OVH, etc.)
+Tu installes manuellement : Django, Gunicorn, Nginx, etc.
+
+Plus compliqué mais très personnalisable
+
+🔁 3. Configure Gunicorn + Nginx (si VPS)
+Sur un VPS (Ubuntu par exemple) :
+
+bash
+Copy
+Edit
+pip install gunicorn
+gunicorn blogify.wsgi
+Puis ajoute un reverse proxy avec Nginx :
+
+nginx
+Copy
+Edit
+server {
+    listen 80;
+    server_name ton-domaine.com;
+
+    location / {
+        proxy_pass http://127.0.0.1:8000;
+    }
+
+    location /static/ {
+        alias /chemin/vers/staticfiles/;
+    }
+}
+✅ 4. Tu veux que ton HTML + JS (fetch) fonctionne ?
+Assure-toi que :
+
+Tes pages HTML sont rendues par Django (TemplateView ou render(request, 'login.html'))
+
+Le JavaScript utilise bien l’URL du backend (fetch('/auth/login/') ou /api/...)
+
+Le CORS est désactivé ou bien configuré si tu sépares frontend/backend
+
+➕ Si nécessaire, installe django-cors-headers :
+bash
+Copy
+Edit
+pip install django-cors-headers
+Ajoute à settings.py :
+
+python
+Copy
+Edit
+INSTALLED_APPS += ['corsheaders']
+MIDDLEWARE = ['corsheaders.middleware.CorsMiddleware'] + MIDDLEWARE
+CORS_ALLOW_ALL_ORIGINS = True  # Pour test uniquement
+🧪 Test final avant déploiement
+✔️ Crée un superutilisateur (python manage.py createsuperuser)
+
+✔️ Vérifie que python manage.py runserver marche localement
+
+✔️ Accède à /admin/, /auth/register/, /auth/login/
+
+✔️ Teste avec fetch() dans tes fichiers .html
+---------------------------------------------------------------------------------------
