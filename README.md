@@ -18,7 +18,7 @@ Bienvenue sur **Blogify**, une plateforme de blogging moderne permettant aux aut
 ### 🏠 Landing Page
 
 <div align="center">
-  <img src="./screenshots/landing-page.png" alt="Landing Page" width="80%">
+  <img src="./screenshots/landing-page.jpeg" alt="Landing Page" width="80%">
 </div>
 
 ---
@@ -26,7 +26,7 @@ Bienvenue sur **Blogify**, une plateforme de blogging moderne permettant aux aut
 ### 📊 Tableau de bord Auteur
 
 <div align="center">
-  <img src="./screenshots/dashboard-author.png" alt="Dashboard Auteur" width="80%">
+  <img src="./screenshots/dashboard-author.jpeg" alt="Dashboard Auteur" width="80%">
 </div>
 
 ---
@@ -35,7 +35,7 @@ Bienvenue sur **Blogify**, une plateforme de blogging moderne permettant aux aut
 
 | Inscription | Connexion | Mot de passe oublié |
 |-------------|-----------|----------------------|
-| ![Sign Up](./screenshots/signup.png) | ![Sign In](./screenshots/signin.png) | ![Forgot Password](./screenshots/forgot-password.png) |
+| ![Sign Up](./screenshots/signup.jpeg) | ![Sign In](./screenshots/signin.jpeg) | ![Forgot Password](./screenshots/forgot-password.jpeg) |
 
 ---
 
@@ -56,12 +56,18 @@ Bienvenue sur **Blogify**, une plateforme de blogging moderne permettant aux aut
 
 ### 1. Cloner le dépôt
 
-```bash
+
 git clone https://github.com/SaraBarkat/Blogify.git
 cd blogify
+
+### 2. Installation Backend (Django)
+
 cd backend
 python -m venv env
 source env/bin/activate  # ou env\Scripts\activate sous Windows
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py runserver
+
+### 3. Ouvrir le Frontend
+Ouvrir frontend/LandingPage/index.html dans votre navigateur ou hébergez-le sur un serveur local.
