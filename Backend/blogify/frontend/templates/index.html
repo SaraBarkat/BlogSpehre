@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+  <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white">
+
+  <!-- Navbar -->
+  <nav class="w-full bg-[#EFF1E2] shadow-md">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-8">
+        <img src="{% static 'images/logo.png' %}" alt="Company Logo" />
+        <div class="flex space-x-6">
+          <a href="#" class="text-[#262920] font-medium hover:underline">Home</a>
+          <a href="#latest-blogs" class="text-[#262920] font-medium hover:underline">Latest Blogs</a>
+          <a href="#discover" class="text-[#262920] font-medium hover:underline">Discover</a>
+        </div>
+      </div>
+      <div class="hidden md:flex">
+        <a href="{% url 'login' %}" class="bg-[#262920] text-white px-4 py-2 rounded-lg hover:bg-opacity-90 transition">Sign in</a>
+      </div>
+      <div class="md:hidden">
+        <button id="mobile-btn" class="text-[#262920] text-2xl focus:outline-none">☰</button>
+      </div>
+    </div>
+    <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 space-y-2">
+      <a href="#" class="block text-[#262920] font-medium">Home</a>
+      <a href="#latest-blogs" class="block text-[#262920] font-medium">Latest Blogs</a>
+      <a href="#discover" class="block text-[#262920] font-medium">Discover</a>
+      <a href="{% url 'login' %}" class="block bg-[#262920] text-white px-4 py-2 rounded-lg text-center">Sign in</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <div class="home">
+    <img src="{% static 'images/home.png' %}" alt="Hero Image" class="w-full h-auto object-cover" loading="lazy" />
+  </div>
+
+  <!-- Latest Blogs Section -->
+  <div class="latest-blogs" id="latest-blogs">
+    <h1 class="text-3xl font-bold text-center mt-8">Latest Blogs</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
+
+      {% for article in articles %}
+        <div class="bg-[#EFF1E2] shadow-md rounded-lg p-4">
+          {% if article.image %}
+            <img src="{{ article.image.url }}" alt="Blog Image {{ article.id }}" class="w-full h-[400px] object-cover" loading="lazy" />
+          {% else %}
+            <img src="{% static 'images/default_blog.png' %}" alt="Default Image" class="w-full h-[400px] object-cover" loading="lazy" />
+          {% endif %}
+
+          <h2 class="text-xl font-semibold mt-2">{{ article.title }}</h2>
+          <p class="text-gray-600">{{ article.resume|truncatewords:25 }}</p>
+          <p class="text-sm text-gray-500 mt-2">
+            <strong>Auteur :
+              {% if article.author.first_name or article.author.family_name %}
+                {{ article.author.first_name }} {{ article.author.family_name }}
+              {% else %}
+                {{ article.author.username }}
+              {% endif %}
+            </strong>
+          </p>
+          <a href="{% url 'article_detail' article_id=article.id %}" class="text-[#582F0E] font-medium hover:underline mt-4 inline-block">Read More</a>
+        </div>
+      {% empty %}
+        <p class="text-center text-gray-500 col-span-3">Aucun article pour le moment.</p>
+      {% endfor %}
+
+    </div>    
+  </div>
+
+  <!-- Discover Section -->
+  <div class="discover text-center" id="discover">
+    <h1 class="text-3xl font-bold mt-8">Ignite Your Mind</h1>
+    <a href="{% url 'discover' %}" class="inline-block bg-[#262920] text-white px-4 py-2 rounded-lg mt-4">Discover</a>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-[#EFF1E2] py-10 mt-16">
+    <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="flex flex-col items-start space-y-3 text-[#262920]">
+        <div class="flex items-center space-x-2">
+          <img src="{% static 'images/logo.png' %}" alt="Logo" />
+          <h6 class="text-xl font-bold" style="color: #414833;">Blogify</h6>
+        </div>
+        <p class="text-sm" style="color: #414833;">
+          Got a story to tell?<br>
+          Join Blogify, where every word counts.<br>
+          Start blogging now!
+        </p>
+      </div>
+      <div class="text-[#262920]">
+        <h4 class="text-lg font-bold mb-4" style="color: #414833;">Platform</h4>
+        <ul class="space-y-2 text-sm" style="color: #414833;">
+          <li><a href="#" class="hover:underline">Home</a></li>
+          <li><a href="#latest-blogs" class="hover:underline">Latest Blogs</a></li>
+          <li><a href="#discover" class="hover:underline">Discover</a></li>
+        </ul>
+      </div>
+      <div class="text-[#262920]">
+        <h4 class="text-lg font-bold mb-4" style="color: #414833;">Contact Us</h4>
+        <div class="flex space-x-4">
+          <a href="#"><img src="{% static 'icons/twitter icon.png' %}" alt="Twitter" class="w-6 h-6"></a>
+          <a href="#"><img src="{% static 'icons/facebook icon.png' %}" alt="Facebook" class="w-6 h-6"></a>
+          <a href="#"><img src="{% static 'icons/instagram icon.png' %}" alt="Instagram" class="w-6 h-6"></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Copyright -->
+  <div class="bg-[#262920] text-white text-center py-4 text-sm">
+    &copy; 2025 Blogify. All rights reserved.
+  </div>
+
+  <!-- Script -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const btn = document.getElementById('mobile-btn');
+      const menu = document.getElementById('mobile-menu');
+      btn.addEventListener('click', () => {
+        menu.classList.toggle('hidden');
+      });
+    });
+  </script>
+
+</body>
+</html>

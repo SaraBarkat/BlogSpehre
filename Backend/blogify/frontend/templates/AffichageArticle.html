@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ article.title }} - Blogify</title>
+  <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white font-sans">
+
+<!-- Navbar -->
+<nav class="w-full bg-[#EFF1E2] shadow-md">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+    <div class="flex items-center space-x-8">
+      <img src="{% static 'images/logo.png' %}" alt="Company Logo">
+      <div class="flex space-x-6">
+        <a href="{% url 'home' %}" class="text-[#262920] font-medium hover:underline">Home</a>
+        <a href="{% url 'home' %}#latest-blogs" class="text-[#262920] font-medium hover:underline">Latest Blogs</a>
+        <a href="{% url 'discover' %}" class="text-[#262920] font-medium hover:underline">Discover</a>
+      </div>
+    </div>
+    <div class="hidden md:flex">
+      <a href="{% url 'login' %}" class="bg-[#262920] text-white px-4 py-2 rounded-lg hover:bg-opacity-90 transition">Sign up</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Article + Comments Section -->
+<section class="max-w-6xl mx-auto px-4 py-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+  <!-- Article Column -->
+  <article class="lg:col-span-2 bg-white shadow-lg rounded-lg p-8">
+
+    <!-- Author Section -->
+    <div class="flex items-center space-x-4 mb-6">
+      <img src="{% if article.author.image %}{{ article.author.image.url }}{% else %}{% static 'images/default_user.jpg' %}{% endif %}" alt="{{ article.author.username }}" class="w-16 h-16 rounded-full">
+      <div>
+        <p class="text-xl font-semibold text-[#262920]">
+          {{ article.author.first_name|default_if_none:"" }} {{ article.author.family_name|default_if_none:"" }}{% if not article.author.first_name and not article.author.family_name %}{{ article.author.username }}{% endif %}
+        </p>
+        <p class="text-gray-600">{{ article.author.profession|default_if_none:"" }}</p>
+        <div class="mt-2 space-x-4">
+          <button id="follow-btn" class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">Follow</button>
+          <button class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition" 
+                  onclick="window.location.href='{% url 'author_profil' article.author.id %}'">
+            View Profile
+          </button>
+        </div>
+      </div>
+    </div>
+
+    {% if article.image %}
+      <img src="{{ article.image.url }}" alt="Blog Image {{ article.id }}" class="w-full h-[500px] object-cover rounded-lg mb-6" loading="lazy" />
+    {% else %}
+      <img src="{% static 'images/default_blog.png' %}" alt="Default Blog Image" class="w-full h-[300px] object-cover rounded-lg mb-6" loading="lazy" />
+    {% endif %}
+
+    <h1 class="text-4xl font-semibold text-[#262920] mb-4">{{ article.title }}</h1>
+    <p class="text-gray-600 mb-4">
+      By 
+      <strong>
+        {{ article.author.first_name|default_if_none:"" }} {{ article.author.family_name|default_if_none:"" }}{% if not article.author.first_name and not article.author.family_name %}{{ article.author.username }}{% endif %}
+      </strong> 
+      | Published on {{ article.created_at|date:"F j, Y" }}
+    </p>
+
+    <p class="text-gray-800 mb-6">{{ article.resume }}</p>
+
+    <div class="flex items-center space-x-4 mb-6">
+      <button id="like-btn" class="text-xl text-gray-600 hover:text-blue-600">
+        ❤️ <span id="like-count">125</span> Likes
+      </button>
+    </div>
+
+    <div class="text-gray-800 space-y-4">
+      {{ article.content|linebreaks }}
+    </div>
+
+    <div class="mt-8 text-gray-600 text-sm">
+      This article is part of our <strong>{{ article.Categorie }}</strong> series.
+    </div>
+  </article>
+
+  <!-- Comments Column -->
+  <aside>
+    <h3 class="text-2xl font-semibold text-[#262920] mb-4">Comments</h3>
+
+    <div id="comments-list" class="space-y-6 mb-6">
+      {% for comment in comments %}
+        <div class="flex space-x-4 bg-[#EDF0E6] p-4 rounded-lg">
+          <img src="{% if comment.author.image %}{{ comment.author.image.url }}{% else %}{% static 'images/default_user.jpg' %}{% endif %}" class="w-12 h-12 rounded-full" alt="User">
+          <div>
+            <a href="{% url 'author_profil' comment.author.id %}" class="text-[#2e3028] font-semibold hover:underline">
+              {{ comment.author.first_name|default_if_none:"" }} {{ comment.author.family_name|default_if_none:"" }}{% if not comment.author.first_name and not comment.author.family_name %}{{ comment.author.username }}{% endif %}
+            </a>
+            <p class="mt-1 text-gray-800">{{ comment.content }}</p>
+            <p class="text-sm text-gray-500">{{ comment.created_at|date:"F j, Y, H:i" }}</p>
+          </div>
+        </div>
+      {% empty %}
+        <p class="text-gray-500">No comments yet. Be the first!</p>
+      {% endfor %}
+    </div>
+
+    <!-- Comment Form -->
+    <form method="POST" action="{% url 'create_comment' article.id %}" enctype="multipart/form-data">
+      {% csrf_token %}
+      <textarea name="content" id="comment-input" class="w-full p-4 border border-gray-300 rounded-md mt-4" placeholder="Add a comment..." required></textarea>
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg mt-2 hover:bg-blue-600 transition">Post Comment</button>
+    </form>
+  </aside>
+</section>
+
+<!-- Scripts -->
+<script>
+  // Like Button
+  let likeCount = 125;
+  const likeBtn = document.getElementById("like-btn");
+  const likeCountElem = document.getElementById("like-count");
+  likeBtn?.addEventListener("click", () => {
+    likeCount++;
+    likeCountElem.textContent = likeCount;
+  });
+
+  // Follow Button
+  const followBtn = document.getElementById("follow-btn");
+  let isFollowing = false;
+  followBtn?.addEventListener("click", () => {
+    isFollowing = !isFollowing;
+    followBtn.textContent = isFollowing ? "Following" : "Follow";
+    followBtn.classList.toggle("bg-blue-500", !isFollowing);
+    followBtn.classList.toggle("bg-green-500", isFollowing);
+    followBtn.classList.toggle("hover:bg-green-600", isFollowing);
+    followBtn.classList.toggle("hover:bg-blue-600", !isFollowing);
+  });
+</script>
+
+</body>
+</html>

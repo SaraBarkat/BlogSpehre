@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+      {% load static %}
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Author Dashboard</title>
+  <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white font-sans">
+
+<!-- Navbar -->
+<nav class="w-full bg-[#EFF1E2] shadow-md">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+    <div class="flex items-center space-x-8">
+      <img src="{% static 'images/logo.png' %}" alt="Company Logo">
+      <div class="flex space-x-6">
+        <a href="{% url 'home' %}" class="text-[#262920] font-medium hover:underline">Home</a>
+        <a href="#" class="text-[#262920] font-medium hover:underline">Dashboard</a>
+        <a href="{% url 'author_settings' author.id %}" class="text-[#262920] font-medium hover:underline">Settings</a>
+      </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="hidden md:flex items-center space-x-2 bg-white border border-gray-300 rounded-lg px-2 py-1 max-w-xs w-full">
+      <input type="text" placeholder="Search..." class="flex-grow px-2 py-1 outline-none text-sm text-[#262920]" />
+      <button class="bg-[#262920] hover:bg-[#3a3d34] text-white px-4 py-1 rounded-lg text-sm transition duration-200">
+        Search
+      </button>
+    </div>
+
+    <div class="md:hidden">
+      <button id="mobile-btn" class="text-[#262920] text-2xl focus:outline-none">☰</button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 space-y-2">
+    <a href="{% url 'home' %}" class="block text-[#262920] font-medium">Home</a>
+    <a href="#" class="block text-[#262920] font-medium">Dashboard</a>
+    <a href="{% url 'author_settings' author.id %}" class="block text-[#262920] font-medium">Settings</a>
+  </div>
+</nav>
+
+<!-- Dashboard Section -->
+<section class="max-w-7xl mx-auto px-4 py-12">
+  <div class="flex space-x-8">
+    
+    <!-- Left Sidebar -->
+    <div class="w-1/4 bg-[#F8F8F8] rounded-lg p-6" style="transform: translateX(-100px);">
+      <div class="flex flex-col items-center mb-8">
+       
+       {%if author.image %}
+        <img src="{{author.image.url}}" alt="Profile Picture" class="w-20 h-20 rounded-full mb-4">
+       {%else %}
+       <img src="{% static 'images/default_user.jpg' %}" alt="Profile Picture" class="w-20 h-20 rounded-full mb-4">
+       {%endif %}
+       
+        <h2 class="text-xl font-semibold text-[#262920]">{{author.username}}</h2>
+        <p class="text-gray-600 text-sm">{{author.profession}}</p>
+      </div>
+
+      <h3 class="text-xl font-semibold text-[#262920] mb-4">Dashboard</h3>
+      <ul class="space-y-4">
+        <li class="flex items-center space-x-3">
+          <img src="{% static 'icons/articles.png' %}" alt="My Articles Icon" class="w-5 h-5">
+          <a href="#" class="text-[#262920] font-medium hover:text-blue-500">My Articles</a>
+        </li>
+        <li class="flex items-center space-x-3">
+          <img src="{%static 'icons/statistics.png' %}" alt="Statistics Icon" class="w-5 h-5">
+          <a href="#statistics" class="text-[#262920] font-medium hover:text-blue-500">Statistics</a>
+        </li>
+        <li class="flex items-center space-x-3">
+          <img src="{% static 'icons/settings.png' %}" alt="Settings Icon" class="w-5 h-5">
+          <a href="{% url 'author_settings' author.id %}" class="text-[#262920] font-medium hover:text-blue-500">Profile Settings</a>
+        </li>
+        <li class="flex items-center space-x-3">
+          <img src="{% static 'icons/notif-icon.png'%}" alt="Notifications Icon" class="w-5 h-5">
+          <a href="#notifications" class="text-[#262920] font-medium hover:text-blue-500">Notifications</a>
+        </li>
+        <li class="flex items-center space-x-3">
+          <img src="{%static 'icons/logout.png' %}" alt="Logout Icon" class="w-5 h-5">
+          <a href="{% url 'logout' %}" class="text-[#262920] font-medium hover:text-blue-500">Logout</a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Right Content Area -->
+    <div class="w-2/3 space-y-8" style="transform: translateX(-100px);">
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-2xl font-semibold text-[#262920] mb-4">Welcome back, {{author.username}}!</h2>
+        <p class="text-gray-600">Your dashboard allows you to manage your articles, check your statistics, and update your settings.</p>
+      </div>
+
+      <!-- Articles Overview -->
+      <div class="bg-white shadow-lg rounded-lg p-6" id="statistics">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-xl font-semibold text-[#262920]">Your Recent Articles</h3>
+          <a href="{% url 'create_article' author.id %}" class="bg-[#262920] text-white px-4 py-2 rounded-lg hover:bg-[#3a3d34]">Nouveau Article</a>
+        </div>
+        <div class="space-y-4">
+
+          {% for article in articles %}
+          <div class="flex justify-between items-center">
+  <p class="text-lg text-[#262920]">{{ article.title }}</p>
+  <div class="flex space-x-4">
+    <a href="{% url 'article_edit' article.id %}" class="text-blue-500 hover:underline">Edit</a>
+   
+   
+    <form method="POST" action="{% url 'article_delete' article.id %}" onsubmit="return confirm('Are you sure you want to delete this article?');">
+  {% csrf_token %}
+  <button type="submit" class="text-red-500 hover:underline">Delete</button>
+</form>
+
+  </div>
+</div>
+
+
+        {% endfor %}
+        </div>
+      </div>
+
+      <!-- Statistics -->
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <h3 class="text-xl font-semibold text-[#262920] mb-4">Statistics</h3>
+        <div class="grid grid-cols-2 gap-6">
+          <div class="bg-[#E6F7FF] p-4 rounded-lg text-center">
+            <p class="text-lg text-[#262920]">Total Articles</p>
+            <p class="text-2xl font-semibold text-[#262920]">15</p>
+          </div>
+          <div class="bg-[#E6FFEB] p-4 rounded-lg text-center">
+            <p class="text-lg text-[#262920]">Total Views</p>
+            <p class="text-2xl font-semibold text-[#262920]">1,200</p>
+          </div>
+          <div class="bg-[#FFEBE6] p-4 rounded-lg text-center">
+            <p class="text-lg text-[#262920]">Followers</p>
+            <p class="text-2xl font-semibold text-[#262920]">450</p>
+          </div>
+          <div class="bg-[#FFF4E6] p-4 rounded-lg text-center">
+            <p class="text-lg text-[#262920]">Total Comments</p>
+            <p class="text-2xl font-semibold text-[#262920]">230</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Notifications -->
+      <div class="bg-white shadow-lg rounded-lg p-6" id="notifications">
+        <h3 class="text-xl font-semibold text-[#262920] mb-4">Latest Notifications</h3>
+        <div class="space-y-4">
+          <div class="flex justify-between items-center">
+            <p class="text-gray-600">Your article "The Power of Positive Thinking" has received 20 new comments.</p>
+            <p class="text-gray-500 text-sm">2 hours ago</p>
+          </div>
+          <div class="flex justify-between items-center">
+            <p class="text-gray-600">Your article "Unlock Your Inner Potential" has been shared 50 times.</p>
+            <p class="text-gray-500 text-sm">5 hours ago</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Chatbot Button -->
+<button id="chatbot-toggle" class="fixed bottom-6 right-6 bg-[#262920] text-white p-3 rounded-full shadow-lg hover:bg-[#3a3d34] transition">
+  💬
+</button>
+
+<!-- Chatbot Sidebar -->
+<div id="chatbot-sidebar" class="fixed top-0 right-0 h-full w-80 bg-white shadow-lg border-l border-gray-200 transform translate-x-full transition-transform duration-300 z-50 flex flex-col">
+  <div class="flex justify-between items-center px-4 py-3 border-b">
+    <h2 class="text-lg font-semibold text-[#262920]">Chat Assistant</h2>
+    <button id="chatbot-close" class="text-gray-600 hover:text-red-500 text-xl">&times;</button>
+  </div>
+  <div class="flex-1 overflow-y-auto px-4 py-2 space-y-2 text-sm text-gray-800">
+    <div class="bg-gray-100 p-2 rounded">Bonjour ! Comment puis-je vous aider aujourd'hui ? 😊</div>
+  </div>
+  <div class="p-3 border-t">
+    <input type="text" placeholder="Écrire un message..." class="w-full px-3 py-2 border rounded text-sm focus:outline-none focus:ring" />
+  </div>
+</div>
+
+<!-- Scripts -->
+<script>
+  const mobileBtn = document.getElementById("mobile-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const chatbotBtn = document.getElementById("chatbot-toggle");
+  const chatbotSidebar = document.getElementById("chatbot-sidebar");
+  const chatbotClose = document.getElementById("chatbot-close");
+
+  mobileBtn.addEventListener("click", () => {
+    mobileMenu.classList.toggle("hidden");
+  });
+
+  chatbotBtn.addEventListener("click", () => {
+    chatbotSidebar.classList.toggle("translate-x-full");
+  });
+
+  chatbotClose.addEventListener("click", () => {
+    chatbotSidebar.classList.add("translate-x-full");
+  });
+</script>
+
+</body>
+</html>

@@ -79,6 +79,8 @@ Site : https://render.com
 
 Tu connectes ton repo GitHub
 
+
+
 Configuration automatique
 
 Prend en charge staticfiles, Gunicorn, etc.

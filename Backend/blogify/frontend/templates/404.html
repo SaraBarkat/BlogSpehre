@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% load static %}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Page Not Found</title>
+  <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white flex flex-col min-h-screen justify-between">
+
+  <!-- Navbar -->
+  <nav class="bg-[#EFF1E2] shadow-md">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="flex items-center space-x-4">
+        <img src="{% static 'images/logo.png' %}" alt="Logo" class="h-8">
+        <h1 class="text-xl font-bold text-[#414833]">Blogify</h1>
+      </div>
+      <a href="{% url 'home' %}" class="text-[#262920] hover:underline">Back to Home</a>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="flex-grow flex items-center justify-center text-center p-8">
+    <div>
+      <h1 class="text-6xl font-bold text-[#582F0E]">404</h1>
+      <p class="text-xl text-[#414833] mt-4">Oops! The page you're looking for doesn't exist.</p>
+      <a href="{% url 'home' %}" class="mt-6 inline-block bg-[#262920] text-white px-4 py-2 rounded-lg hover:bg-opacity-90">Go Home</a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-[#EFF1E2] py-6 text-center text-[#262920] text-sm">
+    &copy; 2025 Blogify. All rights reserved.
+  </footer>
+
+</body>
+</html>

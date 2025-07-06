@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create a New Article</title>
+  <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white font-sans">
+
+<!-- Navbar -->
+<nav class="w-full bg-[#EFF1E2] shadow-md">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+    <div class="flex items-center space-x-8">
+      <img src="{% static 'images/logo.png' %}" alt="Company Logo">
+      <div class="flex space-x-6">
+        <a href="{% url 'home' %}" class="text-[#262920] font-medium hover:underline">Home</a>
+        <a href="{% url 'author_dashboard' author.id %}" class="text-[#262920] font-medium hover:underline">Dashboard</a>
+        <a href="{% url 'author_settings' author.id %}" class="text-[#262920] font-medium hover:underline">Settings</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Section -->
+<section class="max-w-7xl mx-auto px-4 py-12">
+  <div class="flex space-x-8">
+
+    <!-- Sidebar -->
+    <aside class="w-1/4 bg-[#F8F8F8] rounded-xl p-6" style="transform: translateX(-100px);">
+      <div class="flex flex-col items-center mb-8">
+        {% if author.image %}
+          <img src="{{ author.image.url }}" alt="Profile Picture" class="w-20 h-20 rounded-full mb-4">
+        {% else %}
+          <img src="{% static 'images/default_user.jpg' %}" alt="Profile Picture" class="w-20 h-20 rounded-full mb-4">
+        {% endif %}
+        <h2 class="text-xl font-semibold text-[#262920]">{{ author.username }}</h2>
+        <p class="text-gray-600 text-sm">{{ author.profession }}</p>
+      </div>
+      <h3 class="text-xl font-semibold text-[#262920] mb-4">Dashboard</h3>
+      <ul class="space-y-4">
+        <li class="flex items-center space-x-3">
+          <img src="{% static 'icons/articles.png' %}" alt="Articles Icon" class="w-5 h-5">
+          <a href="#" class="text-[#262920] font-medium hover:text-blue-500">My Articles</a>
+        </li>
+        <li class="flex items-center space-x-3">
+          <img src="{% static 'icons/statistics.png' %}" alt="Statistics Icon" class="w-5 h-5">
+          <a href="#statistics" class="text-[#262920] font-medium hover:text-blue-500">Statistics</a>
+        </li>
+        <li class="flex items-center space-x-3">
+          <img src="{% static 'icons/settings.png' %}" alt="Settings Icon" class="w-5 h-5">
+          <a href="{% url 'author_settings' author.id %}" class="text-[#262920] font-medium hover:text-blue-500">Profile Settings</a>
+        </li>
+        <li class="flex items-center space-x-3">
+          <img src="{% static 'icons/notif-icon.png' %}" alt="Notifications Icon" class="w-5 h-5">
+          <a href="#notifications" class="text-[#262920] font-medium hover:text-blue-500">Notifications</a>
+        </li>
+        <li class="flex items-center space-x-3">
+          <img src="{% static 'icons/logout.png' %}" alt="Logout Icon" class="w-5 h-5">
+          <a href="{% url 'logout' %}" class="text-[#262920] font-medium hover:text-blue-500">Logout</a>
+        </li>
+      </ul>
+    </aside>
+
+    <!-- Article Creation Form -->
+    <main class="w-2/3 bg-white shadow-lg rounded-xl p-6" style="transform: translateX(-100px);">
+      <h2 class="text-2xl font-semibold text-[#262920] mb-6">Create a New Article</h2>
+      <form id="articleForm" action="/article/create/{{ author.id }}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="space-y-6">
+
+          <!-- Title -->
+          <div>
+            <label for="title" class="text-lg text-[#262920] font-semibold">Article Title</label>
+            <input type="text" id="title" name="title" required class="w-full px-4 py-2 border border-gray-300 rounded-lg text-[#262920] focus:ring-2 focus:ring-blue-500" placeholder="Enter the article title"/>
+          </div>
+
+            <!-- Summary -->
+          <div>
+            <label for="summary" class="text-lg text-[#262920] font-semibold">Summary</label>
+            <textarea id="summary" name="summary" rows="3" required class="w-full px-4 py-2 border border-gray-300 rounded-lg text-[#262920] focus:ring-2 focus:ring-blue-500" placeholder="Write a short summary of your article..."></textarea>
+          </div>
+
+
+          <!-- Cover Image -->
+          <div>
+            <label for="cover_image" class="text-lg text-[#262920] font-semibold">Cover Image</label>
+              <div class="relative">
+              <input type="file" id="cover_image" name="cover_image" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer z-10" onchange="handleFileChange()" />
+              <button type="button" class="w-full px-4 py-2 border border-gray-300 rounded-lg bg-[#EFF1E2] text-[#262920] text-left" onclick="document.getElementById('cover_image').click()">
+               Choose a cover image
+              </button>
+          </div>
+
+            <!-- Preview -->
+            <div id="image-preview-container" class="mt-4 hidden">
+              <img id="image-preview" src="#" alt="Preview" class="w-40 h-40 object-cover rounded-xl shadow-md mb-2">
+              <button type="button" onclick="removeImage()" class="text-red-600 text-sm hover:underline">❌ Remove Image</button>
+            </div>
+          </div>
+
+          <!-- Language -->
+          <div>
+            <label for="langue" class="text-lg text-[#262920] font-semibold">Language</label>
+            <select id="langue" name="langue" class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+              <option value="en">English</option>
+              <option value="fr">French</option>
+            </select>
+          </div>
+
+          <!-- Content -->
+          <div>
+            <label for="content" class="text-lg text-[#262920] font-semibold">Article Content</label>
+            <textarea id="content" name="content" rows="8" required class="w-full px-4 py-2 border border-gray-300 rounded-lg text-[#262920] focus:ring-2 focus:ring-blue-500" placeholder="Write your article content here..."></textarea>
+            <div class="mt-2 text-right">
+              <button type="button" onclick="corrigerTexte()" class="text-sm text-blue-600 hover:underline">🪄 Auto-correct content</button>
+            </div>
+          </div>
+
+          <!-- Category -->
+          <div>
+            <label for="category" class="text-lg text-[#262920] font-semibold">Category</label>
+            <select id="category" name="category" required class="w-full px-4 py-2 border border-gray-300 rounded-lg">
+              <option value="">Select a category</option>
+              <option value="personal_growth">Personal Growth</option>
+              <option value="health_wellness">Health and Wellness</option>
+              <option value="motivational">Self-Improvement</option>
+              <option value="technology">Technology</option>
+              <option value="lifestyle">Lifestyle</option>
+
+            </select>
+          </div>
+
+          <!-- Buttons -->
+          <div class="flex space-x-4">
+            <button type="submit" class="bg-[#262920] text-white px-6 py-2 rounded-lg hover:bg-[#3a3d34]">Publish Article</button>
+            <a href="{% url 'author_dashboard' author.id %}" class="text-[#262920] font-medium hover:underline py-2 px-4 border border-gray-300 rounded-lg">Cancel</a>
+          </div>
+
+        </div>
+      </form>
+    </main>
+  </div>
+</section>
+
+<!-- Chatbot Button -->
+<button id="chatbot-toggle" class="fixed bottom-6 right-6 bg-[#262920] text-white p-3 rounded-full shadow-lg hover:bg-[#3a3d34] transition">
+  💬
+</button>
+
+<!-- Chatbot Sidebar -->
+<div id="chatbot-sidebar" class="fixed top-0 right-0 h-full w-80 bg-white shadow-lg border-l border-gray-200 transform translate-x-full transition-transform duration-300 z-50 flex flex-col">
+  <div class="flex justify-between items-center px-4 py-3 border-b">
+    <h2 class="text-lg font-semibold text-[#262920]">AI Assistant</h2>
+    <button id="chatbot-close" class="text-gray-600 hover:text-red-500 text-xl">&times;</button>
+  </div>
+  <div id="chatbox" class="flex-1 overflow-y-auto px-4 py-2 space-y-2 text-sm text-gray-800">
+    <div class="bg-gray-100 p-2 rounded">Hello! How can I help you today? 😊</div>
+  </div>
+  <div class="p-3 border-t flex space-x-2">
+    <input id="chat_input" type="text" placeholder="Type a message..." class="flex-grow px-3 py-2 border rounded text-sm focus:outline-none focus:ring" />
+    <button onclick="envoyerQuestion()" class="bg-[#262920] text-white px-4 py-2 rounded hover:bg-[#3a3d34]">Send</button>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script>
+  // Chatbot toggle
+  const chatbotBtn = document.getElementById("chatbot-toggle");
+  const chatbotSidebar = document.getElementById("chatbot-sidebar");
+  const chatbotClose = document.getElementById("chatbot-close");
+
+  chatbotBtn.addEventListener("click", () => {
+    chatbotSidebar.classList.toggle("translate-x-full");
+  });
+
+  chatbotClose.addEventListener("click", () => {
+    chatbotSidebar.classList.add("translate-x-full");
+  });
+
+  // Auto-correct content
+  function corrigerTexte() {
+    const texte = document.getElementById('content').value;
+    const langue = document.getElementById('langue').value;
+
+    fetch('/api/corriger/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': '{{ csrf_token }}',
+      },
+      body: JSON.stringify({ texte: texte, langue: langue }),
+    })
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById('content').value = data.correction;
+      alert("✅ Correction applied!");
+    })
+    .catch(err => alert("Error during correction."));
+  }
+
+  // Chatbot interaction
+  function envoyerQuestion() {
+    const question = document.getElementById('chat_input').value;
+    const langue = document.getElementById('langue').value;
+    const chatbox = document.getElementById('chatbox');
+
+    if (!question.trim()) return;
+
+    chatbox.innerHTML += `<div class="bg-blue-100 p-2 rounded text-right"><strong>You:</strong> ${question}</div>`;
+
+    fetch('/api/chatbot/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': '{{ csrf_token }}',
+      },
+      body: JSON.stringify({ question: question, langue: langue }),
+    })
+    .then(res => res.json())
+    .then(data => {
+      chatbox.innerHTML += `<div class="bg-gray-100 p-2 rounded"><strong>AI:</strong> ${data.reponse}</div>`;
+      document.getElementById('chat_input').value = "";
+      chatbox.scrollTop = chatbox.scrollHeight;
+    })
+    .catch(err => alert("Chatbot error."));
+  }
+
+  // Cover Image Preview + Removal
+  document.getElementById("cover_image").addEventListener("change", function (event) {
+    const file = event.target.files[0];
+    const previewContainer = document.getElementById("image-preview-container");
+    const preview = document.getElementById("image-preview");
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        preview.src = e.target.result;
+        previewContainer.classList.remove("hidden");
+      };
+      reader.readAsDataURL(file);
+    } else {
+      previewContainer.classList.add("hidden");
+    }
+  });
+
+  function removeImage() {
+    const input = document.getElementById("cover_image");
+    const previewContainer = document.getElementById("image-preview-container");
+    const preview = document.getElementById("image-preview");
+
+    input.value = "";
+    preview.src = "#";
+    previewContainer.classList.add("hidden");
+  }
+</script>
+
+</body>
+</html>

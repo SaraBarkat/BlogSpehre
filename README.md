@@ -1,21 +1,22 @@
-# 📝 Blogify
+# 📝 BlogSphère
 
-Bienvenue sur **Blogify**, une plateforme de blogging moderne permettant aux auteurs de créer, gérer et publier leurs articles facilement, avec une interface claire et intuitive.
+Bienvenue sur **BlogSphère**, une plateforme de blogging moderne permettant aux auteurs de créer, gérer et publier leurs articles facilement via une interface claire, responsive et intuitive.
 
 ---
 
 ## 🚀 Fonctionnalités principales
 
-- Publication d'articles avec éditeur simple
-- Tableau de bord pour les auteurs
-- Authentification sécurisée
-- Interface responsive pour tous les appareils
+- ✍️ Création, modification et suppression d’articles  
+- 👤 Tableau de bord personnalisé pour chaque auteur  
+- 🔐 Authentification sécurisée (inscription, connexion, mot de passe)  
+- 🌐 Intégration frontend via le système de templates Django  
+- 📱 Interface responsive (HTML + CSS uniquement, sans framework JS)
 
 ---
 
 ## 📸 Aperçu de l'application
 
-### 🏠 Landing Page
+### 🏠 Page d’accueil
 
 <div align="center">
   <img src="./screenshots/landing-page.jpeg" alt="Landing Page" width="80%">
@@ -26,7 +27,23 @@ Bienvenue sur **Blogify**, une plateforme de blogging moderne permettant aux aut
 ### 📊 Tableau de bord Auteur
 
 <div align="center">
-  <img src="./screenshots/dashboard-author.jpeg" alt="Dashboard Auteur" width="80%">
+  <img src="./screenshots/AuteurDashboard.jpeg" alt="Dashboard Auteur" width="80%">
+</div>
+
+---
+
+### 📄 Affichage d’un article
+
+<div align="center">
+  <img src="./screenshots/AffichageArticle.jpeg" alt="Affichage Article" width="80%">
+</div>
+
+---
+
+### 👤 Profil de l’auteur
+
+<div align="center">
+  <img src="./screenshots/AfficherProfilAuteur.jpeg" alt="Profil Auteur" width="80%">
 </div>
 
 ---
@@ -35,39 +52,59 @@ Bienvenue sur **Blogify**, une plateforme de blogging moderne permettant aux aut
 
 | Inscription | Connexion | Mot de passe oublié |
 |-------------|-----------|----------------------|
-| ![Sign Up](./screenshots/signup.jpeg) | ![Sign In](./screenshots/signin.jpeg) | ![Forgot Password](./screenshots/forgot-password.jpeg) |
+| ![Register](./screenshots/register.jpeg) | ![Login](./screenshots/loging.jpeg) | ![Forgot Password](./screenshots/ForgotPassword.jpeg) |
 
 ---
 
 ## 🛠️ Technologies utilisées
 
-- **Frontend** : HTML, CSS, JavaScript  
-- **Backend** : Django  
-- **Base de données** : MySQL
+- **Backend** : [Django](https://www.djangoproject.com/) (Python)  
+- **Frontend** : HTML & CSS (intégré via le moteur de templates Django)  
+- **Base de données** : MySQL  
+- **Autres** : Tailwind CSS (CDN) pour un style moderne rapide
 
 ---
 
-## 📁 Structure du projet
+## ⚙️ Lancer l'application en local
 
+### 1. Cloner le projet
 
----
-
-## 🚀 Lancer l'application en local
-
-### 1. Cloner le dépôt
-
-
+```bash
 git clone https://github.com/SaraBarkat/Blogify.git
-cd blogify
+cd Blogify
+```
 
-### 2. Installation Backend (Django)
+### 2. Configuration de l’environnement
 
-cd backend
+```bash
 python -m venv env
-source env/bin/activate  # ou env\Scripts\activate sous Windows
+source env/bin/activate  # Sous Windows : env\Scripts\activate
 pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
+```
 
-### 3. Ouvrir le Frontend
-Ouvrir frontend/LandingPage/index.html dans votre navigateur .
+### 3. Initialiser la base de données
+
+```bash
+python manage.py migrate
+```
+
+### 4. Lancer le serveur
+
+```bash
+python manage.py runserver
+```
+
+### 5. Accéder à l’application
+
+Ouvrir [http://127.0.0.1:8000](http://127.0.0.1:8000) dans votre navigateur.
+
+---
+
+## ✅ À savoir
+
+- Tous les templates HTML sont intégrés via Django (`templates/`)  
+- Aucun framework JavaScript externe n’est utilisé  
+- L’interface est entièrement responsive grâce à Tailwind CSS CDN  
+- Compatible desktop, tablette et mobile
+
+---

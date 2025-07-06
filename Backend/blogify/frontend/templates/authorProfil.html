@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ author.first_name }} {{ author.family_name }}- Author Profile</title>
+  <link rel="icon" type="image/png" href="{% static 'images/logo.png' %}">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-[#262920] font-sans">
+
+<!-- Navbar -->
+<nav class="w-full bg-[#EFF1E2] shadow-md">
+  <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+    <div class="flex items-center space-x-8">
+      <img src="{% static 'images/logo.png' %}" alt="Logo" class="h-10" />
+      <div class="hidden md:flex space-x-6">
+        <a href="{% url 'home' %}" class="hover:underline font-medium">Home</a>
+        <a href="{% url 'home' %}#latest-blogs" class="hover:underline font-medium">Latest Blogs</a>
+        <a href="{% url 'discover' %}" class="hover:underline font-medium">Discover</a>
+      </div>
+    </div>
+    <div class="hidden md:flex">
+      <a href="{% url 'login' %}" class="bg-[#262920] text-white px-4 py-2 rounded-lg hover:bg-opacity-90 transition">Sign up</a>
+    </div>
+    <div class="md:hidden">
+      <button id="mobile-btn" class="text-2xl">☰</button>
+    </div>
+  </div>
+  <div id="mobile-menu" class="hidden md:hidden px-4 pb-4 space-y-2">
+    <a href="{% url 'home' %}" class="block font-medium">Home</a>
+    <a href="{% url 'home' %}#latest-blogs" class="block font-medium">Latest Blogs</a>
+    <a href="{% url 'discover' %}" class="block font-medium">Discover</a>
+    <a href="{% url 'login' %}" class="block bg-[#262920] text-white px-4 py-2 rounded-lg text-center">Sign up</a>
+  </div>
+</nav>
+
+<!-- Profile -->
+<div class="max-w-5xl mx-auto px-4 py-16">
+  <div class="bg-[#EFF1E2] rounded-xl shadow p-8 flex flex-col md:flex-row items-center md:items-start justify-between gap-6">
+
+    <!-- Avatar + Info -->
+    <div class="flex items-center gap-6">
+      {% if author.image %}
+        <img src="{{ author.image.url }}" alt="{{ author.first_name }} {{ author.family_name }}" class="w-32 h-32 rounded-full object-cover ring-4 ring-white shadow" />
+      {% else %}
+        <img src="{% static 'images/default_user.jpg' %}" alt="Default" class="w-32 h-32 rounded-full object-cover ring-4 ring-white shadow" />
+      {% endif %}
+
+      <!-- Infos Auteur -->
+      <div class="space-y-1">
+        <h1 class="text-3xl font-bold">{{ author.first_name }} {{ author.family_name }}</h1>
+        {% if author.email %}
+          <p class="text-sm text-gray-600">{{ author.email }}</p>
+        {% endif %}
+        <p class="text-sm text-gray-700 font-medium">{{ author.profession }}</p>
+      </div>
+    </div>
+
+    <!-- Bouton Follow -->
+    <div>
+      <button id="follow-btn" class="px-6 py-2 bg-[#262920] text-white rounded-full hover:bg-[#414833] transition">
+        Follow
+      </button>
+    </div>
+  </div>
+
+  <!-- Bio améliorée -->
+{% if author.bio %}
+  <div class="max-w-5xl mx-auto mt-10 px-4">
+    <h2 class="text-2xl font-bold mb-4 text-[#262920]">About {{ author.first_name }} {{ author.family_name }}</h2>
+    <p class="text-[#414833] leading-relaxed">
+      {{ author.bio }}
+    </p>
+  </div>
+{% endif %}
+
+
+</div>
+
+<!-- Articles -->
+<div class="max-w-5xl mx-auto px-4 mt-16">
+  <h2 class="text-2xl font-semibold mb-6">Articles by {{ author.first_name }} {{ author.family_name }}</h2>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    {% for article in articles %}
+      <div class="bg-[#EFF1E2] rounded-xl shadow p-4 flex flex-col transition hover:shadow-lg hover:-translate-y-1 duration-300">
+        {% if article.image %}
+          <img src="{{ article.image.url }}" alt="Blog Image {{ article.id }}" class="w-full h-[220px] object-cover rounded-md mb-3" />
+        {% else %}
+          <img src="{% static 'images/default_blog.png' %}" alt="Default Blog" class="w-full h-[220px] object-cover rounded-md mb-3" />
+        {% endif %}
+        <h3 class="text-lg font-bold">{{ article.title }}</h3>
+        <p class="text-sm text-gray-600 mb-1">{{ article.resume|truncatewords:20 }}</p>
+        <p class="text-xs text-gray-500 mb-2">Published {{ article.created_at|date:"F j, Y" }}</p>
+        <a href="{% url 'article_detail' article.id %}" class="text-[#582F0E] font-medium hover:underline">Read More</a>
+      </div>
+    {% empty %}
+      <p class="text-gray-500 col-span-3 text-center">No articles yet.</p>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="bg-[#EFF1E2] py-10 mt-20">
+  <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8">
+    <!-- Brand -->
+    <div class="space-y-3">
+      <div class="flex items-center gap-2">
+        <img src="{% static 'images/logo.png' %}" alt="Logo" />
+        <h6 class="text-xl font-bold" style="color: #414833;">Blogify</h6>
+      </div>
+      <p class="text-sm text-[#414833]">Join Blogify and share your thoughts with the world. Start blogging now!</p>
+    </div>
+
+    <!-- Links -->
+    <div class="text-[#262920]">
+      <h4 class="text-lg font-bold mb-4">Platform</h4>
+      <ul class="space-y-2 text-sm">
+        <li><a href="{% url 'home' %}" class="hover:underline">Home</a></li>
+        <li><a href="{% url 'home' %}#latest-blogs" class="hover:underline">Latest Blogs</a></li>
+        <li><a href="{% url 'discover' %}" class="hover:underline">Discover</a></li>
+      </ul>
+    </div>
+
+    <!-- Socials -->
+    <div class="text-[#262920]">
+      <h4 class="text-lg font-bold mb-4">Follow Us</h4>
+      <div class="flex space-x-4">
+        <a href="#"><img src="{% static 'icons/twitter icon.png' %}" alt="Twitter" class="w-6 h-6" /></a>
+        <a href="#"><img src="{% static 'icons/facebook icon.png' %}" alt="Facebook" class="w-6 h-6" /></a>
+        <a href="#"><img src="{% static 'icons/instagram icon.png' %}" alt="Instagram" class="w-6 h-6" /></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Bottom Bar -->
+<div class="bg-[#262920] text-white text-center py-4 text-sm">
+  &copy; 2025 Blogify. All rights reserved.
+</div>
+
+<!-- Script -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById("mobile-btn").addEventListener("click", () => {
+      document.getElementById("mobile-menu").classList.toggle("hidden");
+    });
+
+    const followBtn = document.getElementById("follow-btn");
+    let followed = false;
+
+    followBtn.addEventListener("click", () => {
+      followed = !followed;
+
+      if (followed) {
+        followBtn.textContent = "Unfollow";
+        followBtn.classList.remove("bg-[#262920]", "hover:bg-[#414833]");
+        followBtn.classList.add("bg-green-600", "hover:bg-green-700");
+      } else {
+        followBtn.textContent = "Follow";
+        followBtn.classList.remove("bg-green-600", "hover:bg-green-700");
+        followBtn.classList.add("bg-[#262920]", "hover:bg-[#414833]");
+      }
+    });
+  });
+</script>
+
+
+</body>
+</html>
