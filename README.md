@@ -16,35 +16,9 @@ Bienvenue sur **BlogSphère**, une plateforme de blogging moderne permettant aux
 
 ## 📸 Aperçu de l'application
 
-### 🏠 Page d’accueil
-
-<div align="center">
-  <img src="./screenshots/landing-page.jpeg" alt="Landing Page" width="80%">
-</div>
-
----
-
-### 📊 Tableau de bord Auteur
-
-<div align="center">
-  <img src="./screenshots/AuteurDashboard.jpeg" alt="Dashboard Auteur" width="80%">
-</div>
-
----
-
-### 📄 Affichage d’un article
-
-<div align="center">
-  <img src="./screenshots/AffichageArticle.jpeg" alt="Affichage Article" width="80%">
-</div>
-
----
-
-### 👤 Profil de l’auteur
-
-<div align="center">
-  <img src="./screenshots/AfficherProfilAuteur.jpeg" alt="Profil Auteur" width="80%">
-</div>
+| 🏠 Page d’accueil | 📊 Dashboard Auteur | 📄 Article | 👤 Profil Auteur |
+|------------------|---------------------|------------|------------------|
+| ![Accueil](./screenshots/landing-page.jpeg) | ![Dashboard](./screenshots/AuteurDashboard.jpeg) | ![Article](./screenshots/AffichageArticle.jpeg) | ![Profil](./screenshots/AfficherProfilAuteur.jpeg) |
 
 ---
 
@@ -54,6 +28,7 @@ Bienvenue sur **BlogSphère**, une plateforme de blogging moderne permettant aux
 |-------------|-----------|----------------------|
 | ![Register](./screenshots/register.jpeg) | ![Login](./screenshots/loging.jpeg) | ![Forgot Password](./screenshots/ForgotPassword.jpeg) |
 
+---
 ---
 
 ## 🛠️ Technologies utilisées
