@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: blogify
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn blogify.wsgi:application"
+    envVars:
+      - key: SECRET_KEY
+        value: ton_secret_key
+      - key: DATABASE_NAME
+        value: blogify_db
+      - key: DATABASE_USER
+        value: blogify_user
+      - key: DATABASE_PASSWORD
+        value: ton_mdp
+      - key: DATABASE_HOST
+        value: ton_hote_mysql
+      - key: DATABASE_PORT
+        value: 3306

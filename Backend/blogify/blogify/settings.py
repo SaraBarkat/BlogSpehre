@@ -7,7 +7,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = True
 
-ALLOWED_HOSTS = []#'127.0.0.1', 'localhost'
+ALLOWED_HOSTS = ['.onrender.com', '127.0.0.1']
 
 
 INSTALLED_APPS = [
@@ -81,6 +81,7 @@ USE_I18N = True
 USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'Frontend' / 'assets']
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
