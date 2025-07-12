@@ -1,6 +1,6 @@
 # 📝 Blogify
 
-Bienvenue sur **BlogSphère**, une plateforme de blogging moderne permettant aux auteurs de créer, gérer et publier leurs articles facilement via une interface claire, responsive et intuitive.
+Bienvenue sur **Blogify**, une plateforme de blogging moderne permettant aux auteurs de créer, gérer et publier leurs articles facilement via une interface claire, responsive et intuitive.
 
 ---
 
