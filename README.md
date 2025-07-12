@@ -1,4 +1,4 @@
-# 📝 BlogSphère
+# 📝 Blogify
 
 Bienvenue sur **BlogSphère**, une plateforme de blogging moderne permettant aux auteurs de créer, gérer et publier leurs articles facilement via une interface claire, responsive et intuitive.
 
@@ -16,9 +16,16 @@ Bienvenue sur **BlogSphère**, une plateforme de blogging moderne permettant aux
 
 ## 📸 Aperçu de l'application
 
-| 🏠 Page d’accueil | 📊 Dashboard Auteur | 📄 Article | 👤 Profil Auteur |
-|------------------|---------------------|------------|------------------|
-| ![Accueil](./screenshots/landing-page.jpeg) | ![Dashboard](./screenshots/AuteurDashboard.jpeg) | ![Article](./screenshots/AffichageArticle.jpeg) | ![Profil](./screenshots/AfficherProfilAuteur.jpeg) |
+ 🏠 Page d’accueil 
+
+![Accueil](./screenshots/landing-page.jpeg)
+  📊 Dashboard Auteur 
+![Dashboard](./screenshots/AuteurDashboard.jpeg) 
+  👤 Profil Auteur 
+ ![Profil](./screenshots/AfficherProfilAuteur.jpeg) 
+  📄 Article 
+![Article](./screenshots/AffichageArticle.jpeg) 
+
 
 ---
 
@@ -80,6 +87,6 @@ Ouvrir [http://127.0.0.1:8000](http://127.0.0.1:8000) dans votre navigateur.
 - Tous les templates HTML sont intégrés via Django (`templates/`)  
 - Aucun framework JavaScript externe n’est utilisé  
 - L’interface est entièrement responsive grâce à Tailwind CSS CDN  
-- Compatible desktop, tablette et mobile
+- Compatible desktop, mobile
 
 ---
