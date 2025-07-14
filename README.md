@@ -19,13 +19,6 @@ Bienvenue sur **Blogify**, une plateforme de blogging moderne permettant aux aut
  🏠 Page d’accueil 
 
 ![Accueil](./screenshots/landing-page.jpeg)
-  📊 Dashboard Auteur 
-![Dashboard](./screenshots/AuteurDashboard.jpeg) 
-  👤 Profil Auteur 
- ![Profil](./screenshots/AfficherProfilAuteur.jpeg) 
-  📄 Article 
-![Article](./screenshots/AffichageArticle.jpeg) 
-
 
 ---
 
